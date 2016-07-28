@@ -20,17 +20,17 @@ v2 ping attempt failed with error: Get https://52.193.220.14:5000/v2/: EOF
  v1 ping attempt failed with error: Get https://52.193.220.14:5000/v1/_ping: EOF
 
 5：清理一下上面已经启动的Registry容器
-# docker stop registry
+ $ docker stop registry
 registry
-# docker rm registry
+ $ docker rm registry
 registry
 
 5：修改Registry server上的Docker daemon的配置（/etc/sysconfig/docker），为DOCKER_OPTS增加–insecure-registry：
 DOCKER_OPTS="--insecure-registry 10.10.105.71:5000 ....
 
 6：重启Docker Daemon，启动Registry容器：
-# sudo service docker restart
-# docker run -d -p 5000:5000 registry
+ $ sudo service docker restart
+ $ docker run -d -p 5000:5000 registry
 
 7:再次push
 [root@ip-172-31-17-85 docker]# docker push 52.193.220.14:5000/registry
