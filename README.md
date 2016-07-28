@@ -42,4 +42,20 @@ ec5e6f89215b: Image successfully pushed
 6eb35183d3b8: Image successfully pushed
 Pushing tag for rev [8b162eee2794] on {http://52.193.220.14:5000/v1/repositories/registry/tags/latest}
 
+8: Get the images:
+[root@ip-172-31-17-85 ~]# curl 52.193.220.14:5000/v1/search
+{"num_results": 1, "query": "", "results": [{"description": "", "name": "library/registry"}]}
 
+9:创建Namespace：kube-system
+    ​  执行命令：kubectl create -f namespace.yaml
+
+10:创建rc:kube-ui-v5
+    ​ 执行命令：kubectl create -f kube-ui-rc.yaml
+    ​ 查看创建完成的pod（因设定了空间，查询时也要加上namespace，否则无法显示）：kubectl get pod  --namespace=kube-system
+
+11:创建service：kube-ui
+    ​执行命令：kubectl create -f kube-ui-svc.yaml
+	
+12:安装完成后用浏览器查看页面
+    ​  地址：http://192.168.246.130:8080/ui/
+    ​  自动跳转的地址：http://192.168.246.130:8080/api/v1/proxy/namespaces/kube-system/services/kube-ui/#/dashboard/
